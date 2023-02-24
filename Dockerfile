@@ -1,8 +1,14 @@
-FROM openjdk:8-jre-alpine
+# Start with the official Java image from Docker Hub
+FROM openjdk:11-jre-slim
 
+# Set the working directory in the container to /app
+WORKDIR /app
+
+# Copy the application JAR file into the container
+COPY target/myapp.jar /app/myapp.jar
+
+# Expose port 8080 for the container
 EXPOSE 8080
 
-COPY ./build/libs/my-app-1.0-SNAPSHOT.jar /usr/app/
-WORKDIR /usr/app
-
-ENTRYPOINT ["java", "-jar", "my-app-1.0-SNAPSHOT.jar"]
+# Set the command to run the application when the container starts
+CMD ["java", "-jar", "/app/myapp.jar"]
